@@ -1,0 +1,66 @@
+models:
+  - id: claude-opus-4-6
+    display_name: "Claude Opus 4.6"
+    provider: claude
+    model_string: "claude-opus-4-6"
+    context_tokens: 200000
+    cost_input_per_1k: 0.015
+    cost_output_per_1k: 0.075
+    capability_rank: 10
+    max_output_tokens: 32000
+    strengths: [reasoning, architecture, coding, review, complex-analysis]
+
+  - id: claude-sonnet-4-6
+    display_name: "Claude Sonnet 4.6"
+    provider: claude
+    model_string: "claude-sonnet-4-6"
+    context_tokens: 200000
+    cost_input_per_1k: 0.003
+    cost_output_per_1k: 0.015
+    capability_rank: 7
+    max_output_tokens: 16000
+    strengths: [coding, docs, review, chat, summarization]
+
+  - id: claude-haiku-4-5
+    display_name: "Claude Haiku 4.5"
+    provider: claude
+    model_string: "claude-haiku-4-5"
+    context_tokens: 200000
+    cost_input_per_1k: 0.00025
+    cost_output_per_1k: 0.00125
+    capability_rank: 3
+    max_output_tokens: 8000
+    strengths: [chat, summarization, simple-coding, classification]
+
+# To add OpenAI or other providers, append here and create providers/openai.py:
+# - id: gpt-4o
+#   display_name: "GPT-4o"
+#   provider: openai
+#   model_string: "gpt-4o"
+#   context_tokens: 128000
+#   cost_input_per_1k: 0.005
+#   cost_output_per_1k: 0.015
+#   capability_rank: 9
+#   max_output_tokens: 16384
+#   strengths: [coding, reasoning, vision]
+
+routing:
+  # Complexity score thresholds for model selection
+  opus_threshold: 0.72      # score >= this -> Opus
+  sonnet_threshold: 0.38    # score >= this -> Sonnet, else Haiku
+
+  # Decompose task when estimated_tokens exceeds this fraction of context window
+  decompose_threshold: 0.75
+
+  # Token optimization: compress prompt if estimated tokens exceed this
+  compress_threshold: 6000
+
+  # In-memory result cache TTL in seconds
+  cache_ttl_seconds: 300
+
+token_estimation:
+  # Characters per token (approximate)
+  prose_chars_per_token: 3.8
+  code_chars_per_token: 2.5
+  # Overhead factor for system prompt + response preamble
+  overhead_factor: 1.2
