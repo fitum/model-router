@@ -1,0 +1,1644 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Intelligent AI model routing, orchestration, and cost tracking for Claude">
+      
+      
+      
+      
+        <link rel="prev" href="../usage/">
+      
+      
+        <link rel="next" href="../../doc-assistant/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Troubleshooting - Model Router</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#troubleshooting" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Model Router" class="md-header__button md-logo" aria-label="Model Router" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Model Router
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Troubleshooting
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="cyan"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../configuration/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Configuration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../api/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../getting-started/" class="md-tabs__link">
+          
+  
+  
+  Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../doc-assistant/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Documentation System
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Model Router" class="md-nav__button md-logo" aria-label="Model Router" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Model Router
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation problems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modulenotfounderror-no-module-named-model_router" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ModuleNotFoundError: No module named 'model_router'
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pip-install-fails-with-dependency-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pip install fails with dependency errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-version-is-older-than-311" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python version is older than 3.11
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-key-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API key problems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API key problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authenticationerror-401-unauthorized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AuthenticationError / 401 Unauthorized
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-is-set-but-still-getting-auth-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key is set but still getting auth errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing-and-execution-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing and execution problems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Routing and execution problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#every-prompt-routes-to-opus-regardless-of-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Every prompt routes to Opus regardless of content
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-is-unexpectedly-decomposed-into-subtasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task is unexpectedly decomposed into subtasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#valueerror-no-provider-registered-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ValueError: No provider registered for '...'
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resultresult-is-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        result.result is None
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dashboard-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboard problems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dashboard problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dashboard-wont-start-address-already-in-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboard won't start: Address already in use
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboard-loads-but-shows-no-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboard loads but shows no data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sse-live-stats-are-not-updating" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSE live stats are not updating
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration problems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config-changes-are-not-taking-effect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config changes are not taking effect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yamlscannerscannererror-on-startup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        yaml.scanner.ScannerError on startup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-and-cost-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance and cost problems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance and cost problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#costs-are-higher-than-expected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Costs are higher than expected
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-latency-is-very-high" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response latency is very high
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#still-stuck" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Still stuck?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc-assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation problems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modulenotfounderror-no-module-named-model_router" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ModuleNotFoundError: No module named 'model_router'
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pip-install-fails-with-dependency-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pip install fails with dependency errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-version-is-older-than-311" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python version is older than 3.11
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-key-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API key problems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API key problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authenticationerror-401-unauthorized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AuthenticationError / 401 Unauthorized
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-is-set-but-still-getting-auth-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key is set but still getting auth errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing-and-execution-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing and execution problems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Routing and execution problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#every-prompt-routes-to-opus-regardless-of-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Every prompt routes to Opus regardless of content
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-is-unexpectedly-decomposed-into-subtasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task is unexpectedly decomposed into subtasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#valueerror-no-provider-registered-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ValueError: No provider registered for '...'
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resultresult-is-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        result.result is None
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dashboard-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboard problems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dashboard problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dashboard-wont-start-address-already-in-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboard won't start: Address already in use
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboard-loads-but-shows-no-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboard loads but shows no data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sse-live-stats-are-not-updating" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSE live stats are not updating
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration problems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config-changes-are-not-taking-effect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config changes are not taking effect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yamlscannerscannererror-on-startup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        yaml.scanner.ScannerError on startup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-and-cost-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance and cost problems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance and cost problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#costs-are-higher-than-expected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Costs are higher than expected
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-latency-is-very-high" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response latency is very high
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#still-stuck" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Still stuck?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h1>
+<p>This page lists the most common problems encountered when installing or using Model Router, along with step-by-step fixes.</p>
+<hr />
+<h2 id="installation-problems">Installation problems<a class="headerlink" href="#installation-problems" title="Permanent link">&para;</a></h2>
+<h3 id="modulenotfounderror-no-module-named-model_router"><code>ModuleNotFoundError: No module named 'model_router'</code><a class="headerlink" href="#modulenotfounderror-no-module-named-model_router" title="Permanent link">&para;</a></h3>
+<p><strong>Cause:</strong> Python cannot find the project package — most often because the virtual environment is not activated, or <code>pip install</code> was run in the wrong environment.</p>
+<p><strong>Fix:</strong></p>
+<ol>
+<li>
+<p>Make sure you are in the project root (the directory that contains <code>main.py</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ls<span class="w"> </span>main.py<span class="w">          </span><span class="c1"># should print &quot;main.py&quot;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Activate the virtual environment:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">macOS / Linux</label><label for="__tabbed_1_2">Windows</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>.venv\Scripts\activate
+</code></pre></div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Re-run the install:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</code></pre></div>
+</li>
+<li>
+<p>Run from the project root (not from inside <code>model_router/</code>):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>--help
+</code></pre></div>
+</li>
+</ol>
+<hr />
+<h3 id="pip-install-fails-with-dependency-errors"><code>pip install</code> fails with dependency errors<a class="headerlink" href="#pip-install-fails-with-dependency-errors" title="Permanent link">&para;</a></h3>
+<p><strong>Cause:</strong> An outdated pip or a conflicting package version.</p>
+<p><strong>Fix:</strong></p>
+<ol>
+<li>
+<p>Upgrade pip first:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+</code></pre></div>
+</li>
+<li>
+<p>Retry the install:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</code></pre></div>
+</li>
+</ol>
+<p>If a specific package still fails, install it individually to see the full error:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>pip<span class="w"> </span>install<span class="w"> </span>claude-agent-sdk
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;pydantic&gt;=2.0&quot;</span>
+</code></pre></div>
+<hr />
+<h3 id="python-version-is-older-than-311">Python version is older than 3.11<a class="headerlink" href="#python-version-is-older-than-311" title="Permanent link">&para;</a></h3>
+<p><strong>Symptom:</strong> Syntax errors on startup, or pip rejects the package.</p>
+<p><strong>Fix:</strong> Install Python 3.11 or newer from <a href="https://www.python.org/downloads/">python.org</a> and create a fresh virtual environment:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python3.11<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">    </span><span class="c1"># macOS / Linux</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Managing multiple Python versions</p>
+<p>Tools like <a href="https://github.com/pyenv/pyenv">pyenv</a> (macOS/Linux) or <a href="https://docs.python.org/3/using/windows.html#python-launcher-for-windows">py launcher</a> (Windows) make it easy to switch between Python versions without affecting your system installation.</p>
+</div>
+<hr />
+<h2 id="api-key-problems">API key problems<a class="headerlink" href="#api-key-problems" title="Permanent link">&para;</a></h2>
+<h3 id="authenticationerror-401-unauthorized"><code>AuthenticationError</code> / <code>401 Unauthorized</code><a class="headerlink" href="#authenticationerror-401-unauthorized" title="Permanent link">&para;</a></h3>
+<p><strong>Cause:</strong> <code>ANTHROPIC_API_KEY</code> is not set, is set incorrectly, or the key has been revoked.</p>
+<p><strong>Fix:</strong></p>
+<ol>
+<li>
+<p>Verify the variable is exported in the current shell:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">macOS / Linux</label><label for="__tabbed_2_2">Windows (PowerShell)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$ANTHROPIC_API_KEY</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">echo </span><span class="nv">$env:ANTHROPIC_API_KEY</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>The output should start with <code>sk-ant-</code>. If it is blank, set it:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-ant-...&quot;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Check that your key is active in the <a href="https://console.anthropic.com">Anthropic Console</a>.</p>
+</li>
+<li>
+<p>If you set the key in a new terminal tab, re-activate the virtual environment — environment variables are not inherited across some shell configurations.</p>
+</li>
+</ol>
+<hr />
+<h3 id="key-is-set-but-still-getting-auth-errors">Key is set but still getting auth errors<a class="headerlink" href="#key-is-set-but-still-getting-auth-errors" title="Permanent link">&para;</a></h3>
+<p><strong>Cause:</strong> The key may have leading/trailing spaces, or a shell alias is overriding <code>python</code>.</p>
+<p><strong>Fix:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Unset and re-set to remove accidental whitespace</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nb">unset</span><span class="w"> </span>ANTHROPIC_API_KEY
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-ant-...&quot;</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="c1"># Confirm the key value looks right</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import os; k = os.getenv(&#39;ANTHROPIC_API_KEY&#39;,&#39;&#39;); print(repr(k[:15]))&quot;</span>
+</code></pre></div>
+<hr />
+<h2 id="routing-and-execution-problems">Routing and execution problems<a class="headerlink" href="#routing-and-execution-problems" title="Permanent link">&para;</a></h2>
+<h3 id="every-prompt-routes-to-opus-regardless-of-content">Every prompt routes to Opus regardless of content<a class="headerlink" href="#every-prompt-routes-to-opus-regardless-of-content" title="Permanent link">&para;</a></h3>
+<p><strong>Cause:</strong> <code>quality_requirement</code> defaults to <code>0.5</code>; prompts with architecture or code keywords score high enough to hit the <code>opus_threshold</code> (0.72). Or the threshold has been lowered in <code>config/models.yaml</code>.</p>
+<p><strong>Fix — lower the quality requirement for simple tasks:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;What year was Python created?&quot;</span><span class="w"> </span>--quality<span class="w"> </span><span class="m">0</span>.1
+</code></pre></div>
+<p><strong>Fix — raise the Opus threshold so fewer tasks reach it:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># config/models.yaml</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nt">routing</span><span class="p">:</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span><span class="nt">opus_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.82</span><span class="w">    </span><span class="c1"># was 0.72</span>
+</code></pre></div>
+<p>Then reload: <code>router.reload_config()</code> or dashboard → Settings → Reload.</p>
+<hr />
+<h3 id="task-is-unexpectedly-decomposed-into-subtasks">Task is unexpectedly decomposed into subtasks<a class="headerlink" href="#task-is-unexpectedly-decomposed-into-subtasks" title="Permanent link">&para;</a></h3>
+<p><strong>Cause:</strong> The estimated token count exceeds <code>decompose_threshold × context_window</code>. This happens with very long prompts.</p>
+<p><strong>Fix:</strong></p>
+<ul>
+<li>Shorten the prompt.</li>
+<li>
+<p>Or raise <code>decompose_threshold</code> in <code>config/models.yaml</code> (max 1.0 disables decomposition):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nt">routing</span><span class="p">:</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="nt">decompose_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w">    </span><span class="c1"># never decompose</span>
+</code></pre></div>
+</li>
+</ul>
+<hr />
+<h3 id="valueerror-no-provider-registered-for"><code>ValueError: No provider registered for '...'</code><a class="headerlink" href="#valueerror-no-provider-registered-for" title="Permanent link">&para;</a></h3>
+<p><strong>Cause:</strong> A model entry in <code>config/models.yaml</code> references a provider key (e.g. <code>openai</code>) that has not been registered in <code>model_router/router.py</code>.</p>
+<p><strong>Fix:</strong></p>
+<ol>
+<li>Check your <code>models.yaml</code> for any model with an unrecognised <code>provider:</code> field.</li>
+<li>Either remove or comment out that model entry, or follow the <a href="../../configuration/#adding-a-new-provider">Adding a Provider</a> instructions to implement and register the provider.</li>
+</ol>
+<hr />
+<h3 id="resultresult-is-none"><code>result.result</code> is <code>None</code><a class="headerlink" href="#resultresult-is-none" title="Permanent link">&para;</a></h3>
+<p><strong>Cause:</strong> The provider's <code>execute()</code> call returned no content — most often due to an API error that was silently caught, or a <code>max_turns</code> limit that was reached before any output was produced.</p>
+<p><strong>Fix:</strong></p>
+<ol>
+<li>
+<p>Check <code>result.records</code> for any record where <code>success == False</code> or <code>error</code> is set:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">records</span><span class="p">:</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">rec</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">rec</span><span class="o">.</span><span class="n">error</span><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p>Increase <code>max_turns</code> in <code>TaskRequest</code> if you are using tool-using agents.</p>
+</li>
+<li>Retry with a shorter prompt (token limits may be exceeded for very large inputs).</li>
+</ol>
+<hr />
+<h2 id="dashboard-problems">Dashboard problems<a class="headerlink" href="#dashboard-problems" title="Permanent link">&para;</a></h2>
+<h3 id="dashboard-wont-start-address-already-in-use">Dashboard won't start: <code>Address already in use</code><a class="headerlink" href="#dashboard-wont-start-address-already-in-use" title="Permanent link">&para;</a></h3>
+<p><strong>Cause:</strong> Port 8765 is already taken — either by another Model Router instance or another application.</p>
+<p><strong>Fix:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Use a different port</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>python<span class="w"> </span>main.py<span class="w"> </span>serve<span class="w"> </span>--port<span class="w"> </span><span class="m">9001</span>
+</code></pre></div>
+<p>Or find and kill the process using port 8765:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">macOS / Linux</label><label for="__tabbed_3_2">Windows (PowerShell)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>lsof<span class="w"> </span>-ti:8765<span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span><span class="nb">kill</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nb">Get-Process</span> <span class="n">-Id</span> <span class="p">(</span><span class="nb">Get-NetTCPConnection</span> <span class="n">-LocalPort</span> <span class="n">8765</span><span class="p">).</span><span class="n">OwningProcess</span> <span class="p">|</span> <span class="nb">Stop-Process</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<hr />
+<h3 id="dashboard-loads-but-shows-no-data">Dashboard loads but shows no data<a class="headerlink" href="#dashboard-loads-but-shows-no-data" title="Permanent link">&para;</a></h3>
+<p><strong>Cause:</strong> The dashboard was opened in the browser <em>before</em> any <code>run</code> commands were executed in the same or a previous session.</p>
+<p><strong>Fix:</strong> Run at least one task and refresh the dashboard:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Hello&quot;</span><span class="w"> </span>--quality<span class="w"> </span><span class="m">0</span>.1
+</code></pre></div>
+<p>If data still does not appear, check that <code>data/usage.db</code> exists and is not empty:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>sqlite3<span class="w"> </span>data/usage.db<span class="w"> </span><span class="s2">&quot;SELECT COUNT(*) FROM api_calls;&quot;</span>
+</code></pre></div>
+<hr />
+<h3 id="sse-live-stats-are-not-updating">SSE live stats are not updating<a class="headerlink" href="#sse-live-stats-are-not-updating" title="Permanent link">&para;</a></h3>
+<p><strong>Cause:</strong> The browser or a proxy is buffering the server-sent events stream.</p>
+<p><strong>Fix:</strong></p>
+<ol>
+<li>Try opening the dashboard in a different browser.</li>
+<li>
+<p>If you are behind a reverse proxy (nginx, Caddy), add these headers:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">proxy_set_header</span><span class="w"> </span><span class="s">Cache-Control</span><span class="w"> </span><span class="s">no-cache</span><span class="p">;</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="k">proxy_buffering</span><span class="w"> </span><span class="no">off</span><span class="p">;</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="k">proxy_read_timeout</span><span class="w"> </span><span class="s">86400s</span><span class="p">;</span>
+</code></pre></div>
+</li>
+</ol>
+<hr />
+<h2 id="configuration-problems">Configuration problems<a class="headerlink" href="#configuration-problems" title="Permanent link">&para;</a></h2>
+<h3 id="config-changes-are-not-taking-effect">Config changes are not taking effect<a class="headerlink" href="#config-changes-are-not-taking-effect" title="Permanent link">&para;</a></h3>
+<p><strong>Cause:</strong> <code>models.yaml</code> was edited but the reload was not triggered.</p>
+<p><strong>Fix — programmatic:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">router</span><span class="o">.</span><span class="n">reload_config</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>Fix — dashboard:</strong></p>
+<p>Navigate to <strong>Settings → Reload</strong> and confirm the success message.</p>
+<p><strong>Fix — restart:</strong></p>
+<p>Stop the server (<code>Ctrl+C</code>) and start it again:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>serve
+</code></pre></div>
+<hr />
+<h3 id="yamlscannerscannererror-on-startup"><code>yaml.scanner.ScannerError</code> on startup<a class="headerlink" href="#yamlscannerscannererror-on-startup" title="Permanent link">&para;</a></h3>
+<p><strong>Cause:</strong> Invalid YAML syntax in <code>config/models.yaml</code> — typically a missing colon, wrong indentation, or an unquoted special character.</p>
+<p><strong>Fix:</strong></p>
+<ol>
+<li>
+<p>Validate the file with a YAML linter:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import yaml; yaml.safe_load(open(&#39;config/models.yaml&#39;))&quot;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Fix the reported line.</p>
+</li>
+<li>
+<p>Common pitfalls in YAML:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># Wrong — unquoted colon in value</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="nt">display_name: Claude</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Opus 4.6</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="c1"># Right</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Claude:</span><span class="nv"> </span><span class="s">Opus</span><span class="nv"> </span><span class="s">4.6&quot;</span>
+</code></pre></div>
+</li>
+</ol>
+<hr />
+<h2 id="performance-and-cost-problems">Performance and cost problems<a class="headerlink" href="#performance-and-cost-problems" title="Permanent link">&para;</a></h2>
+<h3 id="costs-are-higher-than-expected">Costs are higher than expected<a class="headerlink" href="#costs-are-higher-than-expected" title="Permanent link">&para;</a></h3>
+<p><strong>Tip 1 — lower the default quality:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span>--quality<span class="w"> </span><span class="m">0</span>.3
+</code></pre></div>
+<p><strong>Tip 2 — set a hard budget ceiling:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span>--budget<span class="w"> </span><span class="m">0</span>.005
+</code></pre></div>
+<p><strong>Tip 3 — enable prompt compression</strong> by lowering <code>compress_threshold</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nt">routing</span><span class="p">:</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">  </span><span class="nt">compress_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span><span class="w">   </span><span class="c1"># compress any prompt over ~2 000 tokens</span>
+</code></pre></div>
+<p><strong>Tip 4 — check the cache TTL.</strong> If similar prompts are repeated within 5 minutes they should be served from cache at zero cost. Verify <code>cache_ttl_seconds</code> is not set to <code>0</code>.</p>
+<hr />
+<h3 id="response-latency-is-very-high">Response latency is very high<a class="headerlink" href="#response-latency-is-very-high" title="Permanent link">&para;</a></h3>
+<p><strong>Cause:</strong> Large prompts, many subtasks, or slow network.</p>
+<p><strong>Tips:</strong></p>
+<ul>
+<li>Use <code>--quality 0.1</code> to route to Haiku, which is 3–5× faster than Opus.</li>
+<li>Check <code>decision.decomposed</code> — decomposed tasks run subtasks sequentially. If decomposition is not needed, raise <code>decompose_threshold</code> to prevent it.</li>
+<li>Use <code>preview</code> first to estimate token count and confirm you are not accidentally sending a huge prompt.</li>
+</ul>
+<hr />
+<h2 id="still-stuck">Still stuck?<a class="headerlink" href="#still-stuck" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Run <code>python main.py --help</code> to confirm the CLI is installed correctly.</li>
+<li>
+<p>Check <code>data/usage.db</code> for failed records:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">api_calls</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">timestamp</span><span class="w"> </span><span class="k">DESC</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Review the <a href="../../configuration/">Configuration reference</a> to confirm <code>models.yaml</code> is valid.</p>
+</li>
+<li>
+<p>Open an issue and include the output of:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>preview<span class="w"> </span><span class="s2">&quot;test&quot;</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>python<span class="w"> </span>--version
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>pip<span class="w"> </span>show<span class="w"> </span>claude-agent-sdk<span class="w"> </span>pydantic<span class="w"> </span>starlette
+</code></pre></div>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

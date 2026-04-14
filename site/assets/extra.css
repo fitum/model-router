@@ -1,0 +1,11 @@
+.screenshot-placeholder {
+  background: #1e1e2e;
+  border: 1px dashed #4c4f69;
+  border-radius: 8px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: #a6adc8;
+  font-size: 0.9rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+}

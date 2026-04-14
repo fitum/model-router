@@ -1,0 +1,1354 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Intelligent AI model routing, orchestration, and cost tracking for Claude">
+      
+      
+      
+      
+        <link rel="prev" href="../../api/">
+      
+      
+        <link rel="next" href="../usage/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Getting Started - Model Router</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#getting-started" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Model Router" class="md-header__button md-logo" aria-label="Model Router" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Model Router
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Getting Started
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="cyan"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../configuration/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Configuration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../api/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../doc-assistant/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Documentation System
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Model Router" class="md-nav__button md-logo" aria-label="Model Router" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Model Router
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-clone-and-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 — Clone and install
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-set-your-api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 — Set your API key
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-preview-your-first-routing-decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 — Preview your first routing decision
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-run-your-first-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 — Run your first task
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4 — Run your first task">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#useful-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful flags
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-use-the-python-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 — Use the Python API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-launch-the-live-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6 — Launch the live dashboard
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6 — Launch the live dashboard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#route-preview-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Route Preview tool
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-understand-the-default-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7 — Understand the default configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc-assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-clone-and-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 — Clone and install
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-set-your-api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 — Set your API key
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-preview-your-first-routing-decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 — Preview your first routing decision
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-run-your-first-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 — Run your first task
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4 — Run your first task">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#useful-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful flags
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-use-the-python-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 — Use the Python API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-launch-the-live-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6 — Launch the live dashboard
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6 — Launch the live dashboard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#route-preview-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Route Preview tool
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-understand-the-default-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7 — Understand the default configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h1>
+<p>By the end of this guide you will have Model Router installed, configured, and running your first routed task — both from the command line and from Python code. The whole process takes about five minutes.</p>
+<hr />
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Version</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python</td>
+<td><strong>≥ 3.11</strong></td>
+<td>Check with <code>python --version</code></td>
+</tr>
+<tr>
+<td>pip</td>
+<td>latest recommended</td>
+<td>Comes with Python</td>
+</tr>
+<tr>
+<td>Anthropic API key</td>
+<td>—</td>
+<td><a href="https://console.anthropic.com">Create one at console.anthropic.com</a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Use a virtual environment</p>
+<p>Model Router installs several dependencies. A virtual environment keeps them isolated from your system Python.</p>
+</div>
+<hr />
+<h2 id="1-clone-and-install">1 — Clone and install<a class="headerlink" href="#1-clone-and-install" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>Clone the repository and enter the project directory:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>&lt;repo-url&gt;
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>model-router
+</code></pre></div>
+</li>
+<li>
+<p><em>(Recommended)</em> Create and activate a virtual environment:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">macOS / Linux</label><label for="__tabbed_1_2">Windows</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python -m venv .venv
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>.venv\Scripts\activate
+</code></pre></div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Install all dependencies from the lock file:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</code></pre></div>
+<p><strong>Expected outcome</strong> — pip installs <code>claude-agent-sdk</code>, <code>pydantic</code>, <code>PyYAML</code>, <code>starlette</code>, <code>uvicorn</code>, <code>sse-starlette</code>, <code>httpx</code>, and <code>anyio</code> without errors.</p>
+</li>
+<li>
+<p>Verify the CLI is available:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>--help
+</code></pre></div>
+<p>You should see the <code>serve</code>, <code>run</code>, and <code>preview</code> subcommands listed.</p>
+</li>
+</ol>
+<hr />
+<h2 id="2-set-your-api-key">2 — Set your API key<a class="headerlink" href="#2-set-your-api-key" title="Permanent link">&para;</a></h2>
+<p>Model Router calls the Claude API through the <code>claude-agent-sdk</code>. The SDK reads the key from an environment variable.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">macOS / Linux</label><label for="__tabbed_2_2">Windows (PowerShell)</label><label for="__tabbed_2_3">Windows (Command Prompt)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-ant-...&quot;</span>
+</code></pre></div>
+Add this line to your <code>~/.zshrc</code> or <code>~/.bashrc</code> to make it permanent.</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">$env:ANTHROPIC_API_KEY</span> <span class="p">=</span> <span class="s2">&quot;sk-ant-...&quot;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">set</span> <span class="nv">ANTHROPIC_API_KEY</span><span class="p">=</span>sk-ant-...
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Keep your key secret</p>
+<p>Never commit your API key to version control. If you use a <code>.env</code> file, add it to <code>.gitignore</code>.</p>
+</div>
+<hr />
+<h2 id="3-preview-your-first-routing-decision">3 — Preview your first routing decision<a class="headerlink" href="#3-preview-your-first-routing-decision" title="Permanent link">&para;</a></h2>
+<p>The <code>preview</code> subcommand scores a prompt and shows which model would be chosen — <strong>without making an API call or spending any money</strong>. It is the fastest way to understand how the router thinks.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>preview<span class="w"> </span><span class="s2">&quot;Refactor this microservice to use async database queries&quot;</span>
+</code></pre></div>
+<p><strong>Expected output:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;selected_model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;claude-opus-4-6&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">&quot;selected_model_string&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;claude-opus-4-6&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="nt">&quot;complexity_score&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7821</span><span class="p">,</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="nt">&quot;task_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;coding&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span><span class="nt">&quot;estimated_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">840</span><span class="p">,</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">  </span><span class="nt">&quot;decomposed&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">  </span><span class="nt">&quot;subtask_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">  </span><span class="nt">&quot;reasoning&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Complexity score: 0.78. Task type: coding. Estimated tokens: 840. Architecture/design signals detected. Code content detected. Selected: Opus 4.6 (highest capability).&quot;</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="p">}</span>
+</code></pre></div>
+<p>The five-signal scoring formula is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>score = 0.35 × token_score
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>      + 0.30 × keyword_complexity
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>      + 0.20 × quality_requirement
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>      + 0.10 × architecture_signal
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>      + 0.05 × multifile_signal
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Score range</th>
+<th>Model selected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>≥ 0.72</td>
+<td>Claude Opus 4.6 — highest capability</td>
+</tr>
+<tr>
+<td>0.38 – 0.72</td>
+<td>Claude Sonnet 4.6 — balanced speed and quality</td>
+</tr>
+<tr>
+<td>&lt; 0.38</td>
+<td>Claude Haiku 4.5 — fastest and cheapest</td>
+</tr>
+</tbody>
+</table>
+<p>Try a simpler prompt and notice the model changes:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>preview<span class="w"> </span><span class="s2">&quot;What is the capital of France?&quot;</span>
+</code></pre></div>
+<hr />
+<h2 id="4-run-your-first-task">4 — Run your first task<a class="headerlink" href="#4-run-your-first-task" title="Permanent link">&para;</a></h2>
+<p>The <code>run</code> subcommand executes the routed task and prints the result.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>run<span class="w"> </span><span class="s2">&quot;Explain the difference between TCP and UDP in one paragraph&quot;</span><span class="w"> </span>--quality<span class="w"> </span><span class="m">0</span>.3
+</code></pre></div>
+<p><strong>Expected output:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Model  : claude-haiku-4-5
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>Tokens : 312
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>Cost   : $0.00008
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>Latency: 843ms
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>TCP (Transmission Control Protocol) guarantees delivery by establishing a
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>connection, ordering packets, and retransmitting lost data — at the cost of
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>extra overhead. UDP (User Datagram Protocol) sends packets without a
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>handshake, making it faster but unreliable, which suits real-time applications
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>like video calls or gaming where occasional packet loss is acceptable.
+</code></pre></div>
+<p>Every call is automatically recorded to <code>data/usage.db</code> (SQLite). You can query it at any time without touching the running server.</p>
+<h3 id="useful-flags">Useful flags<a class="headerlink" href="#useful-flags" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--quality 0.0–1.0</code></td>
+<td>0 = cheapest/fastest, 1 = best quality</td>
+<td><code>--quality 0.9</code></td>
+</tr>
+<tr>
+<td><code>--task-type</code></td>
+<td>Skip auto-detection</td>
+<td><code>--task-type coding</code></td>
+</tr>
+<tr>
+<td><code>--budget</code></td>
+<td>Hard USD ceiling; selects the best model that fits</td>
+<td><code>--budget 0.01</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Force a specific task type:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>run<span class="w"> </span>--task-type<span class="w"> </span>coding<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="s2">&quot;Write a Python dataclass for a paginated API response&quot;</span>
+</code></pre></div>
+<p><strong>Cap spend at one cent:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>run<span class="w"> </span>--budget<span class="w"> </span><span class="m">0</span>.01<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="s2">&quot;Summarise the main ideas of the CAP theorem&quot;</span>
+</code></pre></div>
+<p><strong>Pipe a long prompt from a file:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>cat<span class="w"> </span>my_prompt.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>python<span class="w"> </span>main.py<span class="w"> </span>run<span class="w"> </span>--task-type<span class="w"> </span>review
+</code></pre></div>
+<hr />
+<h2 id="5-use-the-python-api">5 — Use the Python API<a class="headerlink" href="#5-use-the-python-api" title="Permanent link">&para;</a></h2>
+<p>Import <code>ModelRouter</code> directly when you want to embed routing in your own application.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">anyio</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">model_router</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelRouter</span><span class="p">,</span> <span class="n">TaskRequest</span><span class="p">,</span> <span class="n">TaskType</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c1"># Instantiate once; reuse across requests</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="n">router</span> <span class="o">=</span> <span class="n">ModelRouter</span><span class="p">()</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="n">result</span> <span class="o">=</span> <span class="n">anyio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>    <span class="n">router</span><span class="o">.</span><span class="n">route_and_run</span><span class="p">,</span>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>    <span class="n">TaskRequest</span><span class="p">(</span>
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>        <span class="n">prompt</span><span class="o">=</span><span class="s2">&quot;Write unit tests for a binary search implementation&quot;</span><span class="p">,</span>
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>        <span class="n">task_type</span><span class="o">=</span><span class="n">TaskType</span><span class="o">.</span><span class="n">CODING</span><span class="p">,</span>   <span class="c1"># optional — auto-detected if omitted</span>
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>        <span class="n">quality_requirement</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>     <span class="c1"># 0.0 (cheap) → 1.0 (best)</span>
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>    <span class="p">),</span>
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="p">)</span>
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>
+<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">result</span><span class="p">)</span>                                          <span class="c1"># generated text</span>
+<a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model  : </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">decision</span><span class="o">.</span><span class="n">selected_model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>          <span class="c1"># e.g. claude-sonnet-4-6</span>
+<a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tokens : </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">total_input_tokens</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="o">.</span><span class="n">total_output_tokens</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cost   : $</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">total_cost_usd</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Time   : </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">duration_ms</span><span class="si">}</span><span class="s2">ms&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Preview without executing (Python):</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">anyio</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">model_router</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelRouter</span><span class="p">,</span> <span class="n">TaskRequest</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="n">router</span> <span class="o">=</span> <span class="n">ModelRouter</span><span class="p">()</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="n">decision</span> <span class="o">=</span> <span class="n">anyio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>    <span class="n">router</span><span class="o">.</span><span class="n">route_task</span><span class="p">,</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>    <span class="n">TaskRequest</span><span class="p">(</span><span class="n">prompt</span><span class="o">=</span><span class="s2">&quot;Design a distributed event-sourcing system&quot;</span><span class="p">),</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="p">)</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">decision</span><span class="o">.</span><span class="n">selected_model</span><span class="p">)</span>    <span class="c1"># e.g. claude-opus-4-6</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="nb">print</span><span class="p">(</span><span class="n">decision</span><span class="o">.</span><span class="n">complexity_score</span><span class="p">)</span>  <span class="c1"># e.g. 0.85</span>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="nb">print</span><span class="p">(</span><span class="n">decision</span><span class="o">.</span><span class="n">reasoning</span><span class="p">)</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Inside an async application</p>
+<p>If you are already in an <code>async</code> context (FastAPI, Starlette, etc.), call <code>await router.route_and_run(request)</code> directly — no need for <code>anyio.run()</code>.</p>
+</div>
+<hr />
+<h2 id="6-launch-the-live-dashboard">6 — Launch the live dashboard<a class="headerlink" href="#6-launch-the-live-dashboard" title="Permanent link">&para;</a></h2>
+<p>The dashboard gives you real-time cost and usage data, plus an interactive Route Preview tool.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>serve
+</code></pre></div>
+<p>Open <a href="http://localhost:8765">http://localhost:8765</a> in your browser.</p>
+<div class="screenshot-placeholder">
+  📷 Screenshot: Dashboard homepage showing stat cards (Today's Cost, Tokens, Calls, Session Cost) and a model usage bar chart
+</div>
+
+<p><strong>Custom host and port:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>python<span class="w"> </span>main.py<span class="w"> </span>serve<span class="w"> </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>--port<span class="w"> </span><span class="m">9000</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Remote access</p>
+<p>Binding to <code>0.0.0.0</code> exposes the dashboard on all network interfaces. Only do this on trusted networks or behind a reverse proxy.</p>
+</div>
+<h3 id="route-preview-tool">Route Preview tool<a class="headerlink" href="#route-preview-tool" title="Permanent link">&para;</a></h3>
+<p>Navigate to <strong>Tools → Route Preview</strong> in the sidebar. Paste any prompt, adjust the quality slider, and click <strong>Analyse Task</strong> to see the routing decision and full reasoning — no API call is made.</p>
+<div class="screenshot-placeholder">
+  📷 Screenshot: Route Preview page with a prompt entered in the left panel and the routing decision JSON displayed in the right panel
+</div>
+
+<hr />
+<h2 id="7-understand-the-default-configuration">7 — Understand the default configuration<a class="headerlink" href="#7-understand-the-default-configuration" title="Permanent link">&para;</a></h2>
+<p>All routing thresholds live in <strong><code>config/models.yaml</code></strong>. No changes are needed to get started, but it is worth knowing what the defaults are:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nt">routing</span><span class="p">:</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">  </span><span class="nt">opus_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.72</span><span class="w">      </span><span class="c1"># complexity &gt;= this -&gt; Opus</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">  </span><span class="nt">sonnet_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.38</span><span class="w">    </span><span class="c1"># complexity &gt;= this -&gt; Sonnet, else Haiku</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">  </span><span class="nt">compress_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6000</span><span class="w">  </span><span class="c1"># compress prompt when estimated tokens exceed this</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">  </span><span class="nt">cache_ttl_seconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300</span><span class="w">    </span><span class="c1"># in-memory result cache TTL (5 minutes)</span>
+</code></pre></div>
+<p>Changes to <code>models.yaml</code> take effect immediately without restarting the server — click <strong>Settings → Reload</strong> in the dashboard or call <code>router.reload_config()</code> in Python.</p>
+<hr />
+<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Guide</th>
+<th>What you will learn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../usage/">Usage</a></td>
+<td>All CLI flags, Python API patterns, querying usage data, hot-reloading config</td>
+</tr>
+<tr>
+<td><a href="../../configuration/">Configuration</a></td>
+<td>Every option in <code>models.yaml</code>, routing thresholds, token estimation, adding providers</td>
+</tr>
+<tr>
+<td><a href="../troubleshooting/">Troubleshooting</a></td>
+<td>Common errors and how to fix them</td>
+</tr>
+<tr>
+<td><a href="../../architecture/">Architecture</a></td>
+<td>How the scoring, decomposition, and caching pipeline works internally</td>
+</tr>
+<tr>
+<td><a href="../../api/">API Reference</a></td>
+<td>Every public class, method, and data structure</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

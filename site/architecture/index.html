@@ -1,0 +1,1331 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Intelligent AI model routing, orchestration, and cost tracking for Claude">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../configuration/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Architecture - Model Router</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Model Router" class="md-header__button md-logo" aria-label="Model Router" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Model Router
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="cyan"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../configuration/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Configuration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../api/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../guides/getting-started/" class="md-tabs__link">
+          
+  
+  
+  Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../doc-assistant/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Documentation System
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Model Router" class="md-nav__button md-logo" aria-label="Model Router" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Model Router
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#system-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-descriptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Descriptions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Component Descriptions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modelrouter-the-central-orchestrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ModelRouter — the central orchestrator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complexityscorer-model-selector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ComplexityScorer — model selector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#taskdecomposer-large-task-splitter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TaskDecomposer — large-task splitter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tokenoptimizer-cost-reducer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TokenOptimizer — cost reducer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modelregistry-config-loader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ModelRegistry — config loader
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#claudeprovider-sdk-adapter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ClaudeProvider — SDK adapter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usagetracker-persistent-telemetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UsageTracker — persistent telemetry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboard-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboard server
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-technical-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Technical Decisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Technical Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-sqlite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why SQLite?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-sse-for-the-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why SSE for the dashboard?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-abstraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provider abstraction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fallback-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fallback chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../doc-assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#system-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-descriptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Descriptions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Component Descriptions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modelrouter-the-central-orchestrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ModelRouter — the central orchestrator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complexityscorer-model-selector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ComplexityScorer — model selector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#taskdecomposer-large-task-splitter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TaskDecomposer — large-task splitter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tokenoptimizer-cost-reducer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TokenOptimizer — cost reducer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modelregistry-config-loader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ModelRegistry — config loader
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#claudeprovider-sdk-adapter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ClaudeProvider — SDK adapter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usagetracker-persistent-telemetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UsageTracker — persistent telemetry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboard-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboard server
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-technical-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Technical Decisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Technical Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-sqlite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why SQLite?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-sse-for-the-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why SSE for the dashboard?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider-abstraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provider abstraction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fallback-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fallback chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h1>
+<h2 id="system-overview">System Overview<a class="headerlink" href="#system-overview" title="Permanent link">&para;</a></h2>
+<p>Model Router is a thin orchestration layer that sits between your application code (or CLI) and the Claude API. It intercepts every task request, evaluates its complexity, selects the most appropriate — and cost-efficient — model, optionally splits large tasks into parallel subtasks, executes them through a provider adapter, and stores every call in a local SQLite database.</p>
+<pre class="mermaid"><code>graph TD
+    CLI["CLI / Python API&lt;br/&gt;(main.py)"]
+    Router["ModelRouter&lt;br/&gt;router.py"]
+    Optimizer["TokenOptimizer&lt;br/&gt;optimizer.py"]
+    Scorer["ComplexityScorer&lt;br/&gt;scorer.py"]
+    Decomposer["TaskDecomposer&lt;br/&gt;decomposer.py"]
+    Registry["ModelRegistry&lt;br/&gt;registry.py"]
+    Provider["ClaudeProvider&lt;br/&gt;providers/claude.py"]
+    SDK["claude-agent-sdk"]
+    Tracker["UsageTracker&lt;br/&gt;tracker.py"]
+    DB["SQLite&lt;br/&gt;data/usage.db"]
+    Dashboard["Dashboard Server&lt;br/&gt;server/app.py + routes.py"]
+    Browser["Browser UI&lt;br/&gt;server/static/"]
+    Config["config/models.yaml"]
+
+    CLI --&gt;|TaskRequest| Router
+    Dashboard --&gt;|TaskRequest| Router
+    Browser &lt;--&gt;|REST / SSE| Dashboard
+
+    Router --&gt; Optimizer
+    Router --&gt; Scorer
+    Scorer --&gt; Registry
+    Router --&gt; Decomposer
+    Decomposer --&gt; Registry
+    Router --&gt; Provider
+    Provider --&gt; SDK
+    SDK --&gt;|AssistantMessage / ResultMessage| Provider
+    Provider --&gt;|ExecutionRecord| Router
+    Router --&gt; Tracker
+    Tracker --&gt; DB
+    Dashboard --&gt; Tracker
+    Registry --&gt;|reads| Config</code></pre>
+<h2 id="component-descriptions">Component Descriptions<a class="headerlink" href="#component-descriptions" title="Permanent link">&para;</a></h2>
+<h3 id="modelrouter-the-central-orchestrator"><code>ModelRouter</code> — the central orchestrator<a class="headerlink" href="#modelrouter-the-central-orchestrator" title="Permanent link">&para;</a></h3>
+<p><code>ModelRouter</code> (in <code>model_router/router.py</code>) owns the complete request pipeline. It wires all sub-components together and exposes two public coroutines:</p>
+<ul>
+<li><code>route_task(request)</code> — analyse and return a <code>RoutingDecision</code> without executing</li>
+<li><code>route_and_run(request)</code> — full pipeline: compress → score → decompose? → execute → track → return</li>
+</ul>
+<h3 id="complexityscorer-model-selector"><code>ComplexityScorer</code> — model selector<a class="headerlink" href="#complexityscorer-model-selector" title="Permanent link">&para;</a></h3>
+<p><code>ComplexityScorer</code> (<code>scorer.py</code>) converts a raw <code>TaskRequest</code> into a numeric complexity score (0.0–1.0) using five weighted signals:</p>
+<table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Weight</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Estimated token count</td>
+<td>35%</td>
+<td>Normalised to 8 000 tokens</td>
+</tr>
+<tr>
+<td>Keyword complexity</td>
+<td>30%</td>
+<td>Regex patterns weighted +/−</td>
+</tr>
+<tr>
+<td>Quality requirement</td>
+<td>20%</td>
+<td>Caller-supplied 0–1 value</td>
+</tr>
+<tr>
+<td>Architecture signals</td>
+<td>10%</td>
+<td>Detects design-related language</td>
+</tr>
+<tr>
+<td>Multi-file references</td>
+<td>5%</td>
+<td>Two or more file paths in prompt</td>
+</tr>
+</tbody>
+</table>
+<p>The score is compared to two configurable thresholds to select between Opus, Sonnet, and Haiku.</p>
+<h3 id="taskdecomposer-large-task-splitter"><code>TaskDecomposer</code> — large-task splitter<a class="headerlink" href="#taskdecomposer-large-task-splitter" title="Permanent link">&para;</a></h3>
+<p>When the estimated token count exceeds <code>decompose_threshold × context_window</code>, <code>TaskDecomposer</code> (<code>decomposer.py</code>) breaks the request into typed subtasks:</p>
+<table>
+<thead>
+<tr>
+<th>Task type</th>
+<th>Decomposition strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>coding</code></td>
+<td>One subtask per referenced file; Sonnet per file, Opus for integration</td>
+</tr>
+<tr>
+<td><code>review</code></td>
+<td>Four parallel concern passes (security, performance, correctness, style); Opus synthesises</td>
+</tr>
+<tr>
+<td><code>docs</code></td>
+<td>Three sections (overview, API reference, examples); Opus assembles final document</td>
+</tr>
+<tr>
+<td><code>reasoning</code></td>
+<td>Two halves analysed by Sonnet; Opus synthesises</td>
+</tr>
+<tr>
+<td><code>chat</code> / fallback</td>
+<td>Generic chunk-based split</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tokenoptimizer-cost-reducer"><code>TokenOptimizer</code> — cost reducer<a class="headerlink" href="#tokenoptimizer-cost-reducer" title="Permanent link">&para;</a></h3>
+<p><code>TokenOptimizer</code> (<code>optimizer.py</code>) operates on two axes:</p>
+<ol>
+<li><strong>Prompt compression</strong> — three-pass lossy-last strategy applied when estimated tokens exceed <code>compress_threshold</code>:</li>
+<li>Pass 1: whitespace normalisation (lossless)</li>
+<li>Pass 2: strip numbered examples beyond the 5th (near-lossless)</li>
+<li>
+<p>Pass 3: middle-truncation, preserving the first and last 35% (lossy)</p>
+</li>
+<li>
+<p><strong>Result caching</strong> — SHA-256 keyed in-memory cache (prompt + task type) with configurable TTL. Prevents redundant API calls for identical prompts.</p>
+</li>
+</ol>
+<h3 id="modelregistry-config-loader"><code>ModelRegistry</code> — config loader<a class="headerlink" href="#modelregistry-config-loader" title="Permanent link">&para;</a></h3>
+<p><code>ModelRegistry</code> (<code>registry.py</code>) parses <code>config/models.yaml</code> and provides typed access to model capabilities, routing config, and token estimation parameters. Supports hot-reload via <code>reload()</code>.</p>
+<h3 id="claudeprovider-sdk-adapter"><code>ClaudeProvider</code> — SDK adapter<a class="headerlink" href="#claudeprovider-sdk-adapter" title="Permanent link">&para;</a></h3>
+<p><code>ClaudeProvider</code> (<code>providers/claude.py</code>) is the only built-in provider. It wraps <code>claude-agent-sdk</code>'s async <code>query()</code> function, accumulates token usage from streaming messages, and returns a populated <code>ExecutionRecord</code>.</p>
+<h3 id="usagetracker-persistent-telemetry"><code>UsageTracker</code> — persistent telemetry<a class="headerlink" href="#usagetracker-persistent-telemetry" title="Permanent link">&para;</a></h3>
+<p><code>UsageTracker</code> (<code>tracker.py</code>) writes every <code>ExecutionRecord</code> to SQLite using <code>asyncio.to_thread</code> so disk I/O never blocks the event loop. It exposes async query methods used by the dashboard API.</p>
+<h3 id="dashboard-server">Dashboard server<a class="headerlink" href="#dashboard-server" title="Permanent link">&para;</a></h3>
+<p><code>server/app.py</code> creates a Starlette application that mounts:
+- REST + SSE JSON API (defined in <code>server/routes.py</code>)
+- Static files — the single-page dashboard (<code>server/static/</code>)</p>
+<h2 id="data-flow">Data Flow<a class="headerlink" href="#data-flow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+    participant C as Caller
+    participant R as ModelRouter
+    participant O as TokenOptimizer
+    participant S as ComplexityScorer
+    participant D as TaskDecomposer
+    participant P as ClaudeProvider
+    participant T as UsageTracker
+
+    C-&gt;&gt;R: route_and_run(TaskRequest)
+    R-&gt;&gt;O: get_cached(key)
+    alt cache hit
+        O--&gt;&gt;R: cached result
+        R--&gt;&gt;C: RoutedResult (cost=0)
+    else cache miss
+        R-&gt;&gt;O: compress_prompt(prompt)
+        O--&gt;&gt;R: optimised prompt
+        R-&gt;&gt;S: build_routing_decision(request)
+        S--&gt;&gt;R: (TaskFeatures, RoutingDecision)
+        alt decomposed
+            R-&gt;&gt;D: decompose(request, features)
+            D--&gt;&gt;R: list[Subtask]
+            loop each subtask
+                R-&gt;&gt;P: execute(sub_request, model)
+                P--&gt;&gt;R: (text, ExecutionRecord)
+            end
+            R-&gt;&gt;D: combine(results)
+        else direct
+            R-&gt;&gt;P: execute(request, model)
+            P--&gt;&gt;R: (text, ExecutionRecord)
+        end
+        R-&gt;&gt;T: record(ExecutionRecord)
+        R-&gt;&gt;O: set_cached(key, result)
+        R--&gt;&gt;C: RoutedResult
+    end</code></pre>
+<h2 id="key-technical-decisions">Key Technical Decisions<a class="headerlink" href="#key-technical-decisions" title="Permanent link">&para;</a></h2>
+<h3 id="why-sqlite">Why SQLite?<a class="headerlink" href="#why-sqlite" title="Permanent link">&para;</a></h3>
+<p>All deployments are single-process; SQLite avoids an external dependency while still providing full SQL query capability for the dashboard. The schema includes three indexes (timestamp, model, session_id) to keep dashboard queries fast.</p>
+<h3 id="why-sse-for-the-dashboard">Why SSE for the dashboard?<a class="headerlink" href="#why-sse-for-the-dashboard" title="Permanent link">&para;</a></h3>
+<p>Server-Sent Events provide one-way push from the server to the browser without WebSocket complexity. The <code>/api/stats/live</code> endpoint emits updated totals every 2 seconds, giving a near-real-time feel with minimal overhead.</p>
+<h3 id="provider-abstraction">Provider abstraction<a class="headerlink" href="#provider-abstraction" title="Permanent link">&para;</a></h3>
+<p><code>BaseProvider</code> (two abstract methods: <code>execute</code> and <code>supports_model</code>) makes adding a new AI provider a single-file change. No modifications to <code>ModelRouter</code> are needed — just register the new instance in <code>__init__</code>.</p>
+<h3 id="fallback-chain">Fallback chain<a class="headerlink" href="#fallback-chain" title="Permanent link">&para;</a></h3>
+<p>The scorer assigns a one-tier-down fallback for every selection (Opus → Sonnet → Haiku). The <code>ClaudeProvider</code> receives <code>fallback_model_string</code> and can retry on transient errors without re-scoring.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
